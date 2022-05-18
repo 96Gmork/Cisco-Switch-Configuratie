@@ -1,0 +1,131 @@
+Switch Configuratie Cheat Sheet:
+
+User-exec-priv mode / interfaces 
+- enable               # show int
+- conf t               # show in status
+- exit                 # show vlan
+- end                  # show run
+
+Configuratie:
+- initial configuration dialog > no
+- enable
+- conf t 
+____________________________________________________________________
+Baisconfiguratie Switch:
+
+# hostname [hostname]
+# enable secret [password]
+# line console 0
+# password [password]
+# login
+# exit
+# line VTY 04
+# password [password]
+# login
+# exit
+
+# service password encryption 
+
+# banner motd $ bericht $
+_______________________________________________________________________
+Configuratie opslaan:
+- copy running-config startup-config
+
+Configuratie verwijderen:
+-  wr er
+- delete vlan.dat
+________________________________________________________________________
+Configuratie VLAN's:
+
+VLAN's aanmaken:
+# vlan [nummer]
+# name [vlan naam]
+# end
+
+VLAN's verwijderen:
+# no vlan [nummer]
+# no ipaddress [ip + sub]
+
+VLAN poorten toewijzen:
+# interface range Gi of Fa1/0/*-*
+# switchport mode access
+# switchport access vlan [nummer]
+# end
+
+VLAN svi's:
+# interface vlan [nummer]
+# ip address [ip + sub]
+# no shutdown
+
+VLAN interfaces bekijken:
+# show vlan
+
+VLAN's opslaan:
+- copy flash:vlan.dat 
+____________________________________________________________________________
+Configuratie trunk:
+
+# switchport mode trunk
+# switchport trunk encapsulation dot1q
+
+VLAN's toewijzen trunk:
+# switchport mode trunk
+# switchport trunk allow vlan [nummer]
+# switchport trunk allow vlan add [nummer]
+# end
+
+Poort toewijzen trunk:
+# interface [naam interface bv poort 21 of 22]
+# switchport trunk encapsulation dot1q
+# switchport mode trunk
+# end
+
+Trunk interfaces bekijken:
+# show  interfaces trunk
+____________________________________________________________________________
+Switch opnieuw opstarten:
+
+# reload
+_____________________________________________________________________________
+SSH configuratie swtich:
+
+Eventueel al geconfigureerd:
+# no ip domain-lookup
+# hostname [hostname]
+# service password encryption 
+# enable secret [password]
+# banner motd $ bericht $ 
+# line con 0
+# password [password] 
+# login
+# logging synchronous
+# line vty 0 15
+# password [password]
+# login 
+# exit
+
+Note:
+VTY 0 15 is voor SSH!
+
+Configureer SSH toegang tot apparaat:
+# ip domain-name [domein]
+# username admin privilege 15 secret [password]
+# crypto key generate ssh [1024 voor version 2]
+
+# line vty 0 15
+# transport input ssh
+# login local
+# exit
+# show ip ssh
+# ip ssh time-out 75
+# ip ssh version 2
+
+Note:
+Verbinding kan nu via een andere poort worden gemaakt door middel van Putty (of een soortgelijke software).
+___________________________________________________________________________________
+Configureren default-gateway/router:
+# ip default-gateway [ip default-gateway]
+# end 
+____________________________________________________________________________________
+
+Note: nog toevoegen accesspoint configuratie (met extra trunk), uitgebereide backup, overig.
